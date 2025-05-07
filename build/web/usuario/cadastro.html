@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Bookflow - Cadastrar usuário</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../styles.css">
+    </head>
+
+    <body>
+        <form name="frm" method="post" action="/ProjetoWeb/UsuarioController?acao=1">
+            <div
+                style=' border-radius: 6px; background-color: #f3f3f3; padding: 1rem; display: flex; flex-direction: column; gap: 10px'>
+                <div style="display: flex; flex-direction: column; gap: 4px; width: 45%;">
+                    <div>Nome</div>
+                    <input type="text" name="nome">
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 2px; width: 45%;">
+                    <div>Email</div>
+                    <input type="email" name="email">
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 2px; width: 45%;">
+                    <div>Senha</div>
+                    <input type="password" name="senha">
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 2px; width: 45%;">
+                    <div>Telefone</div>
+                    <input type="text" name="telefone">
+                </div>
+                <input type="submit" value="Cadastrar">
+            </div>
+        </form>
+    </body>
+
+</html>

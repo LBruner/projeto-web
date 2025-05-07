@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bookflow - Cadastro Livro</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../styles.css">
+    </head>
+    <body>
+        <form name="frm" method="post" action="../LivroController?acao=1">
+            <div
+                style=' border-radius: 6px; background-color: #f3f3f3; padding: 1.5rem; display: flex; flex-direction: column; gap: 10px'>
+                <div style=" display: flex; align-items: center; width:100%; justify-content: start; gap: 1.5rem">
+                    <div style="display: flex; flex-direction: column; width: 100%; gap: 1rem">
+                        <div style="display: flex; flex-direction: column; gap: 4px;">
+                            <div>Titulo</div>
+                            <input type="text" name="titulo">
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 2px;">
+                            <div>Autor</div>
+                            <input type="text" name="autor">
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 2px;">
+                            <div>Data de Publicação</div>
+                            <input type="date" name="data_publicacao">
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; width: 100%; gap: 1rem">
+                        <div style="display: flex; flex-direction: column; gap: 2px;">
+                            <div>Editora</div>
+                            <input type="text" name="editora">
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 2px;">
+                            <div>Quantidade Total</div>
+                            <input type="number" min="0" name="qtd_total">
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 2px;">
+                            <div>Quantidade Disponivel</div>
+                            <input type="number" min="0" name="qtd_disponivel">
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" value="Cadastrar">
+            </div>
+        </form>
+    </body>
+</html>

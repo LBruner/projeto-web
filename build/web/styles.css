@@ -1,0 +1,223 @@
+/* Basic Body and Typography */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    margin: 20px;
+    background-color: #f4f4f4; /* Light grey background */
+    color: #333; /* Dark grey text */
+    padding-bottom: 50px; /* Add some padding at the bottom */
+}
+
+h1, h2, h3 {
+    color: #555; /* Slightly darker heading color */
+}
+
+/* Table Styling */
+table {
+    border-collapse: collapse; /* Remove space between borders */
+    width: 80%; /* Adjust table width */
+    margin: 20px auto; /* Center the table and add some margin */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Add a subtle shadow */
+    background-color: #fff; /* White background for tables */
+}
+
+th, td {
+    padding: 12px 15px; /* Add padding to cells */
+    text-align: left; /* Align text to the left */
+    border-bottom: 1px solid #ddd; /* Add a bottom border to cells */
+}
+
+th {
+    background-color: #007bff; /* Blue background for table headers */
+    color: white; /* White text for table headers */
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* Zebra striping for rows */
+}
+
+tr:hover {
+    background-color: #ddd; /* Highlight row on hover */
+}
+
+/* Form Styling */
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    max-width: 500px; /* Limit form width */
+    margin: 20px auto; /* Center the form */
+}
+
+form div {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block; /* Make labels block elements */
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+input[type="email"], /* Assuming you might use email inputs */
+input[type="password"], /* Assuming you might use password inputs */
+textarea { /* Styling for potential textareas */
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    font-size: 1rem;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+    border-color: #007bff; /* Highlight border on focus */
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add a subtle shadow on focus */
+}
+
+/* Button Styling */
+button,
+input[type="submit"] {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+button:hover,
+input[type="submit"]:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+button:active,
+input[type="submit"]:active {
+    background-color: #004085; /* Even darker blue when clicked */
+}
+
+/* Link Styling (especially for links within table cells) */
+a {
+    color: #007bff; /* Blue links */
+    text-decoration: none; /* Remove underline */
+}
+
+a:hover {
+    text-decoration: underline; /* Add underline on hover */
+}
+
+/* Style for the button containing a link in Gerenciar Livros */
+button a {
+    color: white; /* Ensure link inside button is white */
+    text-decoration: none; /* Remove underline from link inside button */
+}
+
+/* Center utility class (replaces <center> tag) */
+.center {
+    text-align: center;
+}
+
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 20px;
+    padding: 20px;
+    justify-items: center;
+}
+
+.books-list{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width:100%;
+}
+
+.book-card {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    padding: 15px;
+    display: flex;
+    background-color: #fff;
+    box-shadow: 1px 1px 7px #888888;
+    width: 80%;
+    gap: 15px;
+}
+
+.card-info {
+    flex-shrink: 0;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-image{
+    width: 40%;
+    height: auto;
+    display: flex;
+    align-items: center;
+}
+
+.card-image img {
+    display: block;
+    width:100%;
+    object-fit: fill;
+}
+
+.card-content {
+    border-left: gray 1px solid;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 4%;
+
+}
+
+.card-content h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.card-content p {
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    color: #555;
+}
+
+.card-actions a {
+    margin-right: 10px;
+    text-decoration: none;
+}
+
+.card-actions {
+    margin-top: 10px;
+    display:flex;
+    justify-content: end;
+    gap: 2px;
+}
+
+#excluit-btn {
+    background-color: #bd6363;
+}
