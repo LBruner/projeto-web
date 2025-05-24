@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>BookFlow</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="output.css">
+</head>
+
+<body style="background-color: #fcf0dc" class="flex h-screen items-center justify-center">
+<div style="background-color: #fffefe" class="fixed top-0 flex w-full items-center justify-center py-6 shadow backdrop-blur-lg">
+    <div class="mx-10 flex w-full items-center justify-between gap-4">
+        <div class="text-2xl w-32 hover:cursor-pointer hover:text-orange-400"><span
+                class="text-orange-300 font-light">Book</span><span class="font-bold">Flow</span></div>
+        <div class="flex gap-6 items-center">
+            <p class="text-right w-full text-lg font-light">Não possui uma conta?</p>
+            <a class="w-64 py-2 px-2 bg-green-900 text-orange-50 font-semibold text-lg rounded-lg flex justify-center"
+               href="/ProjetoWeb/usuario/cadastro.html">Cadastre-se</a>
+        </div>
+    </div>
+</div>
+
+<div class="w-full">
+    <div class="flex w-full">
+        <div class="flex w-full pb-5 justify-end">
+            <form name="frm" method="post" action="/ProjetoWeb/UsuarioController?acao=2" class="w-[65%] flex flex-col gap-2">
+                <div class="w-full flex justify-center mb-6">
+                    <p class="text-4xl font-mono">Login</p>
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-xl font-semibold py-2" for="email">Email</label>
+                    <input required name="email" placeholder="endereco@gmail.com"
+                           class="px-4 flex items-center justify-center rounded-lg border-b-gray-300 bg-slate-50 py-3  text-lg transition-all duration-500 ease-in-out focus:border-b-orange-200 focus:outline-none"
+                           id="email" type="text"/>
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-xl font-semibold py-2" for="senha">Senha</label>
+                    <input  name="senha" placeholder="******"
+                           class="px-4 flex items-center justify-center rounded-lg border-b-gray-300 bg-slate-50 py-3  text-lg transition-all duration-500 ease-in-out focus:border-b-orange-200 focus:outline-none"
+                           id="senha" type="password"/>
+                </div>
+                <button type="submit" class="hover:cursor-pointer w-full mt-6 py-4 px-2 bg-green-900 text-orange-50 font-semibold text-lg rounded-lg flex justify-center"
+                   href="/ProjetoWeb/usuario/cadastro.html">Entrar</button>
+            </form>
+        </div>
+        <div class="flex w-full">
+            <img class="fixed right-0 top-1/2 transform -translate-y-1/2 h-8/12 pr-64 object-contain"
+                 src="assets/images/books.png"
+                 alt="Stack of books illustration">
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
