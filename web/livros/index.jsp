@@ -2,6 +2,7 @@
 <%@page import="java.util.List" %>
 <%@page import="vo.LivroVO" %>
 <%@page import="vo.UsuarioVO" %>
+<%@ page import="dao.EmprestimoDAO" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -64,7 +65,9 @@
     </p>
 
     <%
-        List<EmprestimoVO> emprestimos = (List<EmprestimoVO>) session.getAttribute("emprestimos");
+    EmprestimoDAO eDAO = new EmprestimoDAO();
+    List<EmprestimoVO> emprestimos = eDAO.buscarLivrosEmprestados(String.valueOf(loggedInUser.getId()));
+    session.setAttribute("emprestimos", emprestimos);
         if (emprestimos != null && !emprestimos.isEmpty()) {
     %>
     <br><br><br>
