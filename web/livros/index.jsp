@@ -3,6 +3,8 @@
 <%@page import="vo.LivroVO" %>
 <%@page import="vo.UsuarioVO" %>
 <%@ page import="dao.EmprestimoDAO" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="java.time.LocalDate" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -83,7 +85,11 @@
                 <div class="mt-4 pt-4 border-t border-gray-100">
                     <p class="text-sm text-gray-500 mb-1">
                         <span class="font-semibold">Empréstimo:</span>
-                        <%= emprestimoAtual.getDataEmprestimo() %>
+                        <%
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                            String formattedDate = LocalDate.parse(emprestimoAtual.getDataEmprestimo()).format(formatter);
+                        %>
+                        <%= formattedDate %>
                     </p>
                     <p class="text-sm text-gray-500 mb-1">
                         <span class="font-semibold">Devolução:</span>

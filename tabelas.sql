@@ -4,7 +4,7 @@ create table emprestimos
     primary key,
     usuario_id      int                                  not null,
     livro_id        int                                  not null,
-    data_emprestimo datetime   default CURRENT_TIMESTAMP null,
+    data_emprestimo date   default CURRENT_DATE null,
     data_devolucao  datetime                             null,
     devolvido       tinyint(1) default 0                 null,
     constraint emprestimos_ibfk_1
