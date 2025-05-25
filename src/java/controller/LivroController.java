@@ -24,7 +24,6 @@ public class LivroController extends HttpServlet {
             switch (operacao) {
                 //GET busca livros disponíveis para alugar
                 case 1 -> {
-                    request.setAttribute("livros_disponiveis", lDAO.buscarTodosLivrosDisponiveis());
                     RequestDispatcher rd = request.getRequestDispatcher("/livros/emprestrar-livros.jsp");
                     rd.forward(request, response);
                 }
@@ -52,12 +51,7 @@ public class LivroController extends HttpServlet {
 
                     if (lDAO.devolverLivro(chaveEmprestimo)) {
                         UsuarioDAO uDAO = new UsuarioDAO();
-                        UsuarioVO usarioLogado = uDAO.pegaUsuario(chaveUsuario);
-                        EmprestimoDAO eDAO = new EmprestimoDAO();
-                        request.setAttribute("usuario", usarioLogado);
-                        request.setAttribute("emprestimos", eDAO.buscarLivrosEmprestados(String.valueOf(usarioLogado.getId())));
-                        RequestDispatcher rd = request.getRequestDispatcher("livros/index.jsp");
-                        rd.forward(request, response);
+                        response.sendRedirect(request.getContextPath() + "/livros/index.jsp");
                     } else {
                         response.sendRedirect("exibe_resultado.jsp?result=2");
                     }
@@ -68,7 +62,7 @@ public class LivroController extends HttpServlet {
                     int chaveLivro = Integer.parseInt(request.getParameter("livro_id"));
 
                     if (lDAO.alugarLivro(chaveUsuario, chaveLivro)) {
-                        response.sendRedirect("exibe_resultado.jsp?result=1");
+                        response.sendRedirect(request.getContextPath() + "/livros/index.jsp");
                     } else {
                         response.sendRedirect("exibe_resultado.jsp?result=2");
                     }

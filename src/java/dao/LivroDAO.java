@@ -58,7 +58,6 @@ public class LivroDAO {
                     l.setImagemUrl(rs.getString("imagem_url"));
                     l.setDataPublicacao(rs.getString("data_publicacao"));
 
-                    System.err.println("oi");
                     lista.add(l);
                 }
                 con.close();

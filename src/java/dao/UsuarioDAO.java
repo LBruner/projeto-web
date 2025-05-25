@@ -92,7 +92,7 @@ public class UsuarioDAO {
             Conexao conexao = new Conexao();
             con = conexao.estabeleceConexao();
             if (con != null) {
-                String sql = "select id, nome, email, telefone from usuarios WHERE id = ?";
+                String sql = "select id, nome, email from usuarios WHERE id = ?";
                 ps = con.prepareStatement(sql);
                 ps.setString(1, String.valueOf(usuarioId));
 

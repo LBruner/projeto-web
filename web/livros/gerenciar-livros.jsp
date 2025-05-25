@@ -30,8 +30,9 @@
     <div class="mt-18 flex h-screen w-full flex-col">
         <nav style="background-color: #fcfdfe" class="fixed h-20 top-0 items-center justify-center shadow flex w-full bg-slate-50/50 py-6 backdrop-blur-lg">
             <div class="flex w-full justify-between gap-4 mx-14 items-center">
-                <div class="text-2xl w-32 hover:cursor-pointer hover:text-orange-400"><span
-                        class="text-orange-300 font-light">Book</span><span class="font-bold">Flow</span></div>
+                <div class="text-2xl w-32 hover:cursor-pointer hover:text-orange-400">
+                    <span class="text-orange-300 font-light">Book</span><span class="font-bold">Flow</span>
+                </div>
                 <div class="flex gap-4">
                     <div>
                         <a href="./livros/index.jsp"

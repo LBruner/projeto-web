@@ -1,6 +1,7 @@
 <%@page import="vo.LivroVO" %>
 <%@page import="java.util.List" %>
 <%@ page import="vo.UsuarioVO" %>
+<%@ page import="dao.LivroDAO" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -20,7 +21,9 @@
 
     boolean ehAdmin = loggedInUser.getTemAdm();
 
-    List livrosDisponiveis = (List) request.getAttribute("livros_disponiveis");
+    LivroDAO livroDAO = new LivroDAO();
+    List<LivroVO> livrosDisponiveis = livroDAO.buscarTodosLivrosDisponiveis();
+    request.setAttribute("livros_disponiveis", livrosDisponiveis);
 
     if (livrosDisponiveis != null && !livrosDisponiveis.isEmpty()) {
 %>
@@ -89,6 +92,5 @@
 <%
     }
 %>
-
 
 </html>
