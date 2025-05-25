@@ -1,5 +1,6 @@
+<%@ page import="vo.UsuarioVO" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html lang="pt">
-
 <head>
     <title>Adicionar Livro</title>
     <meta charset="UTF-8">
@@ -9,18 +10,38 @@
 </head>
 
 <body class="">
+<%
+    UsuarioVO loggedInUser = (UsuarioVO) session.getAttribute("usuario");
+
+    if (loggedInUser == null) {
+        response.sendRedirect(request.getContextPath() + "/index.html");
+        return;
+    }
+
+    int usuarioId = loggedInUser.getId();
+    boolean ehAdmin = loggedInUser.getTemAdm();
+%>
+
 <div  style="background-color: #fcf0dc" class="mt-18 flex h-screen w-full flex-col">
-    <div class="fixed top-0 items-center justify-center shadow flex w-full bg-slate-50/50 py-6 backdrop-blur-lg">
+    <div class="fixed h-20 top-0 items-center justify-center shadow flex w-full bg-slate-50/50 py-6 backdrop-blur-lg">
         <div class="flex w-full justify-between gap-4 mx-14 items-center">
             <div class="text-2xl w-32 hover:cursor-pointer hover:text-orange-400"><span
                     class="text-orange-300 font-light">Book</span><span class="font-bold">Flow</span></div>
             <div class="flex gap-4">
                 <div>
-                    <a href="./index.jsp" class="hover:cursor-pointer hover:text-orange-400 font-semibold text-orange-500 text-lg">Home</a>
+                    <a href="./index.jsp" class="hover:cursor-pointer hover:text-orange-400 font-semibold text-lg">Home</a>
                 </div>
                 <div>
-                    <a href="<%= request.getContextPath() %>/LivroController?acao=1" class="hover:cursor-pointer hover:text-orange-400 font-semibold  text-lg">Descobrir Livros</a>
+                    <a href="<%= request.getContextPath() %>/LivroController?acao=1" class="hover:cursor-pointer hover:text-orange-400 font-semibold text-lg">Descobrir</a>
                 </div>
+                <% if (ehAdmin) { %>
+                <div>
+                    <a href="<%= request.getContextPath() %>/LivroController?acao=5"
+                       class="hover:cursor-pointer hover:text-orange-400 font-semibold text-lg">
+                        Gerenciar Livros
+                    </a>
+                </div>
+                <% } %>
                 <form method="post" action="/ProjetoWeb/UsuarioController?acao=3">
                     <button class="text-lg font-semibold hover:cursor-pointer hover:text-orange-400">Sair</button>
                 </form>
@@ -54,13 +75,13 @@
                 <input required class="border-b border-b-gray-200 py-2 focus:border-b-orange-200 focus:outline-none" type="date" name="data" id="data"/>
             </div>
             <div class="flex flex-col">
-                <label class="text-lg font-semibold" for="categoria">Categoria</label>
+                <label class="text-lg font-semibold" for="genero">Gênero</label>
                 <div class="relative mt-1 inline-block w-full">
-                    <select class="block w-full appearance-none rounded border-b border-gray-300 bg-white px-4 py-3 pr-8text-gray-700 focus:border-orange-300 focus:bg-white focus:outline-none" name="categoria" id="categoria">
-                        <option>Ação</option>
-                        <option>Fantasia</option>
-                        <option>Terror</option>
-                        <option>Romance</option>
+                    <select class="block w-full appearance-none rounded border-b border-gray-300 bg-white py-3 pr-8text-gray-700 focus:border-orange-300 focus:bg-white focus:outline-none" name="genero" id="genero">
+                        <option name="Aventura">Aventura</option>
+                        <option name="Fantasia">Fantasia</option>
+                        <option name="Terror">Terror</option>
+                        <option name="Romance">Romance</option>
                     </select>
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                         <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -70,7 +91,7 @@
                 </div>
             </div>
             <div class="flex justify-center">
-                <button class="hover:cursor-pointer w-full mt-6 py-4 px-2 bg-orange-300 hover:bg-orange-300 text-white font-semibold text-lg rounded-lg flex justify-center" type="submit">
+                <button class="hover:cursor-pointer w-full mt-6 py-4 bg-orange-300 hover:bg-orange-400 text-white font-semibold text-lg rounded-lg flex justify-center" type="submit">
                     Adicionar Livro
                 </button>
             </div>

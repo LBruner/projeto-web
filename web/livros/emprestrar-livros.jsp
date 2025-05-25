@@ -1,5 +1,6 @@
 <%@page import="vo.LivroVO" %>
 <%@page import="java.util.List" %>
+<%@ page import="vo.UsuarioVO" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -8,21 +9,25 @@
     <link rel="stylesheet" href="output.css">
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
     <title>BookFlow - Descobrir</title>
-</head><%
-    HttpSession currentSession = request.getSession();
-    String loggedInUser = "";
+</head>
+<%
+    UsuarioVO loggedInUser = (UsuarioVO) session.getAttribute("usuario");
 
-    if (currentSession.getAttribute("usuario_id") instanceof String) {
-        loggedInUser = (String) currentSession.getAttribute("usuario_id");
+    if (loggedInUser == null) {
+        response.sendRedirect(request.getContextPath() + "/index.html");
+        return;
     }
+
+    boolean ehAdmin = loggedInUser.getTemAdm();
 
     List livrosDisponiveis = (List) request.getAttribute("livros_disponiveis");
 
     if (livrosDisponiveis != null && !livrosDisponiveis.isEmpty()) {
 %>
+
 <body class="">
 <div  style="background-color: #fcf0dc" class="mt-18 flex h-screen w-full flex-col">
-    <div class="fixed top-0 items-center justify-center shadow flex w-full bg-slate-50/50 py-6 backdrop-blur-lg">
+    <div class="fixed h-20 top-0 items-center justify-center shadow flex w-full bg-slate-50/50 py-6 backdrop-blur-lg">
         <div class="flex w-full justify-between gap-4 mx-14 items-center">
             <div class="text-2xl w-32 hover:cursor-pointer hover:text-orange-400"><span
                     class="text-orange-300 font-light">Book</span><span class="font-bold">Flow</span></div>
@@ -31,8 +36,16 @@
                     <a href="./livros/index.jsp" class="hover:cursor-pointer hover:text-orange-400  font-semibold text-lg">Home</a>
                 </div>
                 <div>
-                    <a href="<%= request.getContextPath() %>/LivroController?acao=1" class="hover:cursor-pointer hover:text-orange-400 text-orange-500 font-semibold text-lg">Descobrir Livros</a>
+                    <a href="<%= request.getContextPath() %>/LivroController?acao=1" class="hover:cursor-pointer text-orange-300 hover:text-orange-400 font-semibold  text-lg">Descobrir</a>
                 </div>
+                <% if (ehAdmin) { %>
+                <div>
+                    <a href="<%= request.getContextPath() %>/LivroController?acao=5"
+                       class="hover:cursor-pointer hover:text-orange-400 font-semibold text-lg">
+                        Gerenciar Livros
+                    </a>
+                </div>
+                <% } %>
                 <form method="post" action="/ProjetoWeb/UsuarioController?acao=3">
                     <button class="text-lg font-semibold hover:cursor-pointer hover:text-orange-400">Sair</button>
                 </form>
@@ -43,7 +56,6 @@
     <div class="mx-14 my-8 flex h-auto flex-col items-center justify-center gap-8 rounded-lg bg-slate-50 px-8 py-6 shadow-sm mb-12">
         <div class="flex w-full justify-between">
             <p class="text-2xl font-bold text-gray-800">Recomendados</p>
-            <p class="rounded-lg bg-blue-100 px-4 py-2 font-bold text-blue-500 shadow hover:cursor-pointer hover:bg-blue-200 hover:text-blue-600">Ver Todos ></p>
         </div>
         <div class="grid grid-cols-6 gap-8 justify-items-center">
             <%
@@ -58,12 +70,12 @@
                          alt="Capa do Livro <%= livroAtual.getTitulo() %>"
                          loading="lazy" />
                 </div>
-                <div class="px-4 py-2 flex flex-col gap-3">
+                <div class="px-4 py-2 flex flex-col gap-2 justify-around">
                     <p class="line-clamp-1 text-xl font-bold text-ellipsis"><%= livroAtual.getTitulo() %></p>
-                    <p class="font-light text-gray-600">Autor: <%= livroAtual.getAutor() %></p>
+                    <p class="font-light text-lg text-gray-600"><%= livroAtual.getAutor() %></p>
                     <div class="flex justify-center w-full items-center">
-                        <a href="../ProjetoWeb/LivroController?acao=4&usuario_id=<%= loggedInUser %>&livro_id=<%= livroAtual.getId() %>"
-                           class="w-10/12 font-semibold text-center mt-2 bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition-colors duration-200">
+                        <a href="../ProjetoWeb/LivroController?acao=4&usuario_id=<%= loggedInUser.getId() %>&livro_id=<%= livroAtual.getId() %>"
+                           class="w-10/12 font-semibold text-center bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-600 transition-colors duration-200">
                             Emprestar
                         </a>
                     </div>

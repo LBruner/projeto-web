@@ -15,7 +15,7 @@ public class Conexao {
     private Connection con; //*
 
     public Conexao() {
-        bd = "jdbc:mysql://localhost/bookflow";
+        bd = "jdbc:mysql://localhost/bookflow?useUnicode=true&characterEncoding=UTF-8";
         usuario = "root";
         senha = "root";
         con = null; 

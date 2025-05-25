@@ -161,11 +161,9 @@ public class LivroDAO {
             Conexao conexao = new Conexao();
             con = conexao.estabeleceConexao();
             if (con != null) {
-                String sql = "UPDATE livros set titulo = ?, autor = ?, editora = ?, data_publicacao = ?, quantidade_total = ?, "
-                        + "quantidade_disponivel = ?, imagem_url = ? WHERE id = ?";
+                String sql = "UPDATE livros set titulo = ?, autor = ?, genero = ?, data_publicacao = ?, "
+                        + "imagem_url = ? WHERE id = ?";
                 ps = con.prepareStatement(sql);
-                System.err.println("AQUI");
-                System.err.println(livro.getTitulo());
 
                 ps.setString(1, livro.getTitulo());
                 ps.setString(2, livro.getAutor());

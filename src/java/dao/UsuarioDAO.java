@@ -4,40 +4,47 @@
  */
 package dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 import connection.Conexao;
-
-import java.sql.ResultSet;
 
 import vo.UsuarioVO;
 
 public class UsuarioDAO {
 
-    public boolean gravar(UsuarioVO u) {
+    public UsuarioVO gravar(UsuarioVO u) {
         try {
             Conexao conexao = new Conexao();
             Connection con = conexao.estabeleceConexao();
             if (con != null) {
                 PreparedStatement ps;
-                String sql = "insert into usuarios (nome, email, senha, telefone) values (?, ?, ?, ?)";
-                ps = con.prepareStatement(sql);
+                String sql = "INSERT INTO usuarios (nome, email, senha, adm) VALUES (?, ?, ?, ?)";
+                ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
                 ps.setString(1, u.getNome());
                 ps.setString(2, u.getEmail());
                 ps.setString(3, u.getSenha());
-                ps.setString(4, u.getTelefone());
+                ps.setBoolean(4, u.getTemAdm());
 
                 int resultado = ps.executeUpdate();
+
+                if (resultado > 0) {
+                    try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                        if (generatedKeys.next()) {
+                            int id = generatedKeys.getInt(1);
+                            u.setId(id);
+                        }
+                    }
+                }
+
                 conexao.fecharConexao();
-                return resultado != 0;
+                return u;
             } else {
-                return false;
+                return null;
             }
         } catch (SQLException erro) {
             System.out.println("Exceção causada na inserção: " + erro);
-            return false;
+            return null;
         }
     }
 
@@ -50,7 +57,7 @@ public class UsuarioDAO {
             Conexao conexao = new Conexao();
             con = conexao.estabeleceConexao();
             if (con != null) {
-                String sql = "select id, nome, email, telefone from usuarios WHERE email = ? AND senha = ?";
+                String sql = "select id, nome, email, adm from usuarios WHERE email = ? AND senha = ?";
                 ps = con.prepareStatement(sql);
                 ps.setString(1, u.getEmail());
                 ps.setString(2, u.getSenha());
@@ -62,7 +69,7 @@ public class UsuarioDAO {
                     usuarioLogado.setId(rs.getInt("id"));
                     usuarioLogado.setNome(rs.getString("nome"));
                     usuarioLogado.setEmail(rs.getString("email"));
-                    usuarioLogado.setTelefone(rs.getString("telefone"));
+                    usuarioLogado.setTemAdm(rs.getBoolean("adm"));
                 }
                 con.close();
 
@@ -96,7 +103,6 @@ public class UsuarioDAO {
                     usuarioLogado.setId(rs.getInt("id"));
                     usuarioLogado.setNome(rs.getString("nome"));
                     usuarioLogado.setEmail(rs.getString("email"));
-                    usuarioLogado.setTelefone(rs.getString("telefone"));
                 }
                 con.close();
 

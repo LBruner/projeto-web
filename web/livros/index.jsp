@@ -15,23 +15,6 @@
 
 <body class="">
 <div  style="background-color: #fcf0dc" class="mt-18 flex h-screen w-full flex-col">
-    <div class="fixed top-0 items-center justify-center shadow flex w-full bg-slate-50/50 py-6 backdrop-blur-lg">
-        <div class="flex w-full justify-between gap-4 mx-14 items-center">
-        <div class="text-2xl w-32 hover:cursor-pointer hover:text-orange-400"><span
-                class="text-orange-300 font-light">Book</span><span class="font-bold">Flow</span></div>
-        <div class="flex gap-4">
-            <div>
-                <a href="./index.jsp" class="hover:cursor-pointer hover:text-orange-400 font-semibold text-orange-500 text-lg">Home</a>
-            </div>
-            <div>
-                <a href="<%= request.getContextPath() %>/LivroController?acao=1" class="hover:cursor-pointer hover:text-orange-400 font-semibold  text-lg">Descobrir Livros</a>
-            </div>
-            <form method="post" action="/ProjetoWeb/UsuarioController?acao=3">
-                <button class="text-lg font-semibold hover:cursor-pointer hover:text-orange-400">Sair</button>
-            </form>
-        </div>
-    </div>
-    </div>
     <%
         UsuarioVO loggedInUser = (UsuarioVO) session.getAttribute("usuario");
 
@@ -41,7 +24,34 @@
         }
 
         int usuarioId = loggedInUser.getId();
+        boolean ehAdmin = loggedInUser.getTemAdm();
     %>
+
+    <div class="fixed h-20 top-0 items-center justify-center shadow flex w-full bg-slate-50/50 py-6 backdrop-blur-lg">
+        <div class="flex w-full justify-between gap-4 mx-14 items-center">
+            <div class="text-2xl w-32 hover:cursor-pointer hover:text-orange-400"><span
+                    class="text-orange-300 font-light">Book</span><span class="font-bold">Flow</span></div>
+            <div class="flex gap-4">
+                <div>
+                    <a href="./index.jsp" class="hover:cursor-pointer hover:text-orange-400 font-semibold text-orange-500 text-lg">Home</a>
+                </div>
+                <div>
+                    <a href="<%= request.getContextPath() %>/LivroController?acao=1" class="hover:cursor-pointer hover:text-orange-400 font-semibold  text-lg">Descobrir</a>
+                </div>
+                <% if (ehAdmin) { %>
+                <div>
+                    <a href="<%= request.getContextPath() %>/LivroController?acao=5"
+                       class="hover:cursor-pointer hover:text-orange-400 font-semibold text-lg">
+                        Gerenciar Livros
+                    </a>
+                </div>
+                <% } %>
+                <form method="post" action="/ProjetoWeb/UsuarioController?acao=3">
+                    <button class="text-lg font-semibold hover:cursor-pointer hover:text-orange-400">Sair</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <button><a href="<%= request.getContextPath() %>/LivroController?acao=1">Encontrar Livros</a></button>
     <button><a href="<%= request.getContextPath() %>/LivroController?acao=5">Gerenciar Livros</a></button>
@@ -51,8 +61,6 @@
     <p>Name: <%= loggedInUser.getNome() %>
     </p>
     <p>Email: <%= loggedInUser.getEmail() %>
-    </p>
-    <p>Telefone: <%= loggedInUser.getTelefone() %>
     </p>
 
     <%

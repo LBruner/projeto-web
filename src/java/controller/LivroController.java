@@ -95,17 +95,16 @@ public class LivroController extends HttpServlet {
                     int livroId = Integer.parseInt(request.getParameter("id"));
                     String titulo = request.getParameter("titulo");
                     String autor = request.getParameter("autor");
-                    String editora = request.getParameter("editora");
+                    String genero = request.getParameter("genero");
                     String imagemUrl = request.getParameter("imagem_url");
                     String dataPublicacao = request.getParameter("data_publicacao");
-                    int quantidadeTotal = Integer.parseInt(request.getParameter("quantidade_total"));
 
                     LivroVO livroParaEditar = new LivroVO();
                     livroParaEditar.setId(livroId);
                     livroParaEditar.setTitulo(titulo);
                     livroParaEditar.setAutor(autor);
                     livroParaEditar.setImagemUrl(imagemUrl);
-                    livroParaEditar.setGenero(editora);
+                    livroParaEditar.setGenero(genero);
                     livroParaEditar.setDataPublicacao(dataPublicacao);
 
                     if (lDAO.editarLivro(livroParaEditar)) {

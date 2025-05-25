@@ -3,9 +3,9 @@ package vo;
 public class UsuarioVO {
     private int id;
     private String nome;
-    private String telefone;
     private String email;
     private String senha;
+    private Boolean temAdm;
 
     public void setId(int id) {
         this.id = id;
@@ -39,12 +39,11 @@ public class UsuarioVO {
         return senha;
     }
 
-    public String getTelefone() {
-        return telefone;
+    public void setTemAdm(Boolean temAdm) {
+        this.temAdm = temAdm;
     }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public Boolean getTemAdm() {
+        return temAdm;
     }
-
 }

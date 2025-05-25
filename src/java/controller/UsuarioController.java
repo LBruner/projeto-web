@@ -6,7 +6,6 @@ import dao.UsuarioDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +18,7 @@ import vo.UsuarioVO;
 public class UsuarioController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws IOException {
         try (PrintWriter out = response.getWriter()) {
             int operacao = Integer.parseInt(request.getParameter("acao"));
             UsuarioDAO uDAO = new UsuarioDAO();
@@ -29,12 +28,20 @@ public class UsuarioController extends HttpServlet {
                 case 1 -> {
                     UsuarioVO u = new UsuarioVO();
                     u.setNome(request.getParameter("nome"));
-                    u.setTelefone(request.getParameter("telefone"));
                     u.setEmail(request.getParameter("email"));
                     u.setSenha(request.getParameter("senha"));
+                    u.setTemAdm(false);
 
-                    if (uDAO.gravar(u)) {
-                        response.sendRedirect("exibe_resultado.jsp?result=1");
+                    UsuarioVO usuarioCriado = uDAO.gravar(u);
+
+                    if (usuarioCriado != null) {
+                        EmprestimoDAO eDAO = new EmprestimoDAO();
+
+                        HttpSession session = request.getSession();
+                        session.setAttribute("usuario", usuarioCriado);
+                        List<EmprestimoVO> emprestimos = eDAO.buscarLivrosEmprestados(String.valueOf(usuarioCriado.getId()));
+                        session.setAttribute("emprestimos", emprestimos);
+                        response.sendRedirect(request.getContextPath() + "/livros/index.jsp");
                     } else {
                         response.sendRedirect("exibe_resultado.jsp?result=2");
                     }
@@ -51,7 +58,6 @@ public class UsuarioController extends HttpServlet {
                     if (usuarioLogado != null) {
                         // Store everything in session
                         HttpSession session = request.getSession();
-                        session.setAttribute("usuario_id", String.valueOf(usuarioLogado.getId()));
                         session.setAttribute("usuario", usuarioLogado);
                         List<EmprestimoVO> emprestimos = eDAO.buscarLivrosEmprestados(String.valueOf(usuarioLogado.getId()));
                         session.setAttribute("emprestimos", emprestimos);
@@ -68,23 +74,6 @@ public class UsuarioController extends HttpServlet {
                     session.removeAttribute("emprestimos");
                     response.sendRedirect("index.html");
                 }
-
-//                //Listagem dos dados
-//                case 2 -> {
-//                    request.setAttribute("lista", cDAO.buscarCarros());
-//                    RequestDispatcher rd = request.getRequestDispatcher("/exibe_carros.jsp");
-//                    rd.forward(request, response);
-//                }
-//
-//                //Exclusão dos dados
-//                case 3 -> {
-//                    int id = Integer.parseInt(request.getParameter("chave"));
-//                    if (cDAO.excluir(id)) {
-//                        response.sendRedirect("exibe_resultado.jsp?result=1");
-//                    } else {
-//                        response.sendRedirect("exibe_resultado.jsp?result=2");
-//                    }
-//                }
             }
         }
     }
